@@ -1,5 +1,5 @@
+import { CSSObject, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useTheme } from '@emotion/react';
 import type { ThemeSchema } from '@thanh-libs/theme';
 import { pxToRem } from '@thanh-libs/utils';
 import type { AvatarSize, AvatarVariant } from './models';
@@ -12,8 +12,8 @@ export const AvatarStyled = styled.div<{
   ownerBgColor?: string;
   ownerTextColor?: string;
   ownerBordered: boolean;
-}>(({ ownerSize, ownerVariant, ownerBgColor, ownerTextColor, ownerBordered }) => {
-  const theme = useTheme() as ThemeSchema;
+}>(({ ownerSize, ownerVariant, ownerBgColor, ownerTextColor, ownerBordered }): CSSObject => {
+  const { palette, typography }: ThemeSchema = useTheme();
 
   const isPreset = typeof ownerSize === 'string';
   const sizeConfig = isPreset ? AVATAR_SIZE_MAP[ownerSize] : null;
@@ -35,10 +35,10 @@ export const AvatarStyled = styled.div<{
     width: pxToRem(dimension),
     height: pxToRem(dimension),
     borderRadius: borderRadiusMap[ownerVariant],
-    backgroundColor: ownerBgColor ?? theme.palette?.action?.hover ?? '#e0e0e0',
-    color: ownerTextColor ?? theme.palette?.text?.primary ?? '#616161',
+    backgroundColor: ownerBgColor ?? palette?.action?.hover ?? '#e0e0e0',
+    color: ownerTextColor ?? palette?.text?.primary ?? '#616161',
     fontSize: pxToRem(fontSize),
-    fontFamily: theme.typography?.fontFamily ?? 'inherit',
+    fontFamily: typography?.fontFamily ?? 'inherit',
     fontWeight: 600,
     lineHeight: 1,
     overflow: 'hidden',
@@ -47,7 +47,7 @@ export const AvatarStyled = styled.div<{
     boxSizing: 'border-box' as const,
 
     ...(ownerBordered && {
-      border: `${pxToRem(borderWidth)} solid ${theme.palette?.background?.default ?? '#fff'}`,
+      border: `${pxToRem(borderWidth)} solid ${palette?.background?.default ?? '#fff'}`,
     }),
   };
 });

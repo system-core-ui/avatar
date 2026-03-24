@@ -10,7 +10,7 @@ export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   src?: string;
   /** Alternative text for the image (defaults to `name` or `'avatar'`) */
   alt?: string;
-  /** Full name — used to generate initials (e.g. "Quốc Thành" → "QT") */
+  /** Full name — used to generate initials (e.g. "Quốc Thanh" → "QT") */
   name?: string;
   /** Manual background color for initials/icon (hex, rgb, hsl) */
   color?: string;

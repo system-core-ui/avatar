@@ -4,7 +4,7 @@
  * Extract up to 2 initials from a full name.
  *
  * @example
- * getInitials('Quốc Thành') // => 'QT'
+ * getInitials('Quốc Thanh') // => 'QT'
  * getInitials('Alice')       // => 'A'
  * getInitials('')            // => ''
  */

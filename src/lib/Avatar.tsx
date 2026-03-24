@@ -18,7 +18,7 @@ const DefaultUserIcon = () => (
  *
  * @example
  * ```tsx
- * <Avatar src="/photo.jpg" name="Quốc Thành" />
+ * <Avatar src="/photo.jpg" name="Quốc Thanh" />
  * <Avatar name="Alice Smith" autoColor />
  * <Avatar size="lg" variant="rounded" />
  * ```

@@ -19,7 +19,7 @@ const BasicStory = () => (
       <Avatar src="https://i.pravatar.cc/80?img=1" name="John Doe" />
     </Row>
     <Row label="initials avatar">
-      <Avatar name="Quốc Thành" autoColor />
+      <Avatar name="Quốc Thanh" autoColor />
     </Row>
     <Row label="fallback (no src, no name)">
       <Avatar />
@@ -47,7 +47,7 @@ const SizesStory = () => (
   <div style={{ padding: 32 }}>
     <Row label="preset sizes">
       {(['sm', 'md', 'lg'] as AvatarSize[]).map((s) => (
-        <Avatar key={s} size={s} name="Quốc Thành" autoColor />
+        <Avatar key={s} size={s} name="Quốc Thanh" autoColor />
       ))}
     </Row>
     <Row label="custom number sizes">
@@ -67,7 +67,7 @@ const SizesStory = () => (
 
 const InitialsStory = () => {
   const names = [
-    'Quốc Thành', 'Alice Smith', 'Bob Johnson', 'Charlie Brown',
+    'Quốc Thanh', 'Alice Smith', 'Bob Johnson', 'Charlie Brown',
     'Diana Prince', 'Eve Wilson', 'Frank Castle', 'Grace Hopper',
   ];
 
@@ -200,7 +200,7 @@ export const Playground: StoryObj = {
     variant: 'circular',
     bordered: false,
     autoColor: true,
-    name: 'Quốc Thành',
+    name: 'Quốc Thanh',
     color: '',
     src: '',
   },

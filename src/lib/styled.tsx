@@ -2,8 +2,16 @@ import { CSSObject, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { ThemeSchema } from '@thanh-libs/theme';
 import { pxToRem } from '@thanh-libs/utils';
+
 import type { AvatarSize, AvatarVariant } from './models';
-import { AVATAR_SIZE_MAP } from './constants';
+
+import {
+  AVATAR_SIZE_MAP,
+  CUSTOM_FONT_SIZE_RATIO,
+  CUSTOM_BORDER_WIDTH_RATIO,
+  CUSTOM_BORDER_WIDTH_MIN,
+  ROUNDED_RADIUS_RATIO,
+} from './constants';
 
 /* ─── Avatar Root ──────────────────────────────────────────── */
 export const AvatarStyled = styled.div<{
@@ -12,45 +20,62 @@ export const AvatarStyled = styled.div<{
   ownerBgColor?: string;
   ownerTextColor?: string;
   ownerBordered: boolean;
-}>(({ ownerSize, ownerVariant, ownerBgColor, ownerTextColor, ownerBordered }): CSSObject => {
-  const { palette, typography }: ThemeSchema = useTheme();
+}>(
+  ({
+    ownerSize,
+    ownerVariant,
+    ownerBgColor,
+    ownerTextColor,
+    ownerBordered,
+  }): CSSObject => {
+    const { palette, typography }: ThemeSchema = useTheme();
 
-  const isPreset = typeof ownerSize === 'string';
-  const sizeConfig = isPreset ? AVATAR_SIZE_MAP[ownerSize] : null;
-  const dimension = sizeConfig ? sizeConfig.dimension : (ownerSize as number);
-  const fontSize = sizeConfig ? sizeConfig.fontSize : Math.round((ownerSize as number) * 0.4);
-  const borderWidth = sizeConfig ? sizeConfig.borderWidth : Math.max(2, Math.round((ownerSize as number) * 0.05));
+    const actionColor = palette?.action?.hover ?? '#e0e0e0';
+    const textColor = palette?.text?.primary ?? '#616161';
+    const bgColor = palette?.background?.default ?? '#fff';
+    const fontFamily = typography?.fontFamily ?? 'inherit';
 
-  const borderRadiusMap: Record<AvatarVariant, string> = {
-    circular: '50%',
-    rounded: pxToRem(Math.round(dimension * 0.2)),
-    square: '0',
-  };
+    const isPreset = typeof ownerSize === 'string';
+    const sizeConfig = isPreset ? AVATAR_SIZE_MAP[ownerSize] : null;
+    const dimension = sizeConfig ? sizeConfig.dimension : (ownerSize as number);
+    const fontSize = sizeConfig
+      ? sizeConfig.fontSize
+      : Math.round((ownerSize as number) * CUSTOM_FONT_SIZE_RATIO);
+    const borderWidth = sizeConfig
+      ? sizeConfig.borderWidth
+      : Math.max(CUSTOM_BORDER_WIDTH_MIN, Math.round((ownerSize as number) * CUSTOM_BORDER_WIDTH_RATIO));
 
-  return {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-    width: pxToRem(dimension),
-    height: pxToRem(dimension),
-    borderRadius: borderRadiusMap[ownerVariant],
-    backgroundColor: ownerBgColor ?? palette?.action?.hover ?? '#e0e0e0',
-    color: ownerTextColor ?? palette?.text?.primary ?? '#616161',
-    fontSize: pxToRem(fontSize),
-    fontFamily: typography?.fontFamily ?? 'inherit',
-    fontWeight: 600,
-    lineHeight: 1,
-    overflow: 'hidden',
-    userSelect: 'none' as const,
-    position: 'relative' as const,
-    boxSizing: 'border-box' as const,
+    const borderRadiusMap: Record<AvatarVariant, string> = {
+      circular: '50%',
+      rounded: pxToRem(Math.round(dimension * ROUNDED_RADIUS_RATIO)),
+      square: '0',
+    };
 
-    ...(ownerBordered && {
-      border: `${pxToRem(borderWidth)} solid ${palette?.background?.default ?? '#fff'}`,
-    }),
-  };
-});
+    return {
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+      width: pxToRem(dimension),
+      height: pxToRem(dimension),
+      borderRadius: borderRadiusMap[ownerVariant],
+      backgroundColor: ownerBgColor ?? actionColor,
+      color: ownerTextColor ?? textColor,
+      fontSize: pxToRem(fontSize),
+      fontFamily,
+      fontWeight: 600,
+      lineHeight: 1,
+      overflow: 'hidden',
+      userSelect: 'none' as const,
+      position: 'relative' as const,
+      boxSizing: 'border-box' as const,
+
+      ...(ownerBordered && {
+        border: `${pxToRem(borderWidth)} solid ${bgColor}`,
+      }),
+    };
+  },
+);
 
 /* ─── Avatar Image ─────────────────────────────────────────── */
 export const AvatarImgStyled = styled.img({
